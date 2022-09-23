@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Portal.Domain.Projects;
 
-public class Project
+public class Project  :BaseEntity
 {
     public Project()
     {

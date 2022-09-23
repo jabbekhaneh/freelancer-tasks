@@ -2,7 +2,7 @@
 
 namespace Portal.Domain.Users;
 
-public class User
+public class User  :BaseEntity
 {
     public User()
     {

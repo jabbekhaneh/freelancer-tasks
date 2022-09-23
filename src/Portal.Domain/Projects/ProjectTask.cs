@@ -3,9 +3,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Portal.Domain.Projects;
 
-public class ProjectTask
+public class ProjectTask : BaseEntity
 {
-    [Required,MaxLength(250)]
+    [Required, MaxLength(250)]
     public string Title { get; set; }
     [Required]
     public DateTime StartDate { get; set; }
