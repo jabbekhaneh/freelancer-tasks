@@ -34,4 +34,9 @@ public class ProjectTaskApplicationServices : ProjectTaskServices
             ProjectId = task.ProjectId,
         };
     }
+
+    public async Task<GetProjectTaskDto> GetById(int projectTaskId)
+    {
+        return await _repository.GetById(projectTaskId);
+    }
 }

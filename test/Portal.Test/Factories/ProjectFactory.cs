@@ -71,6 +71,9 @@ namespace Portal.Test.Factories
             context.Projects.AddRangeAsync(projects);
             return projects;
         }
+
+        
+
         internal static EditProjectDto GenerateEditProjectDto(string title = "Dummy-edit-title",
                                                           int price = 50 + 10)
         {

@@ -1,4 +1,6 @@
-﻿using Portal.Domain.Projects.DTOs;
+﻿using Portal.Domain.Projects;
+using Portal.Domain.Projects.DTOs;
+using Portal.EF;
 using System;
 
 namespace Portal.Test.Factories;
@@ -14,5 +16,18 @@ public static class ProjectTaskFactory
             EndDate= DateTime.Now.AddDays(1),
             ProjectId = projectId,
         };
+    }
+
+    internal static ProjectTask GenerateProjectTask(EFdbApplication context,int projectId)
+    {
+        var newProjectTask = new ProjectTask
+        {
+            Title = "Dummy-Title",
+            StartDate = DateTime.Now,
+            EndDate = DateTime.Now,
+            ProjectId =projectId,
+        };
+        context.ProjectTasks.Add(newProjectTask);
+        return newProjectTask;
     }
 }

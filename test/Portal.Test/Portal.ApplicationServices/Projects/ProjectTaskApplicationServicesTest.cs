@@ -41,12 +41,30 @@ namespace Portal.Test.Portal.ApplicationServices.Projects
 
             var projectTaskId = await _services.Add(addProjectTaskDto);
 
-            var projectTask = _context.ProjetcTasks
+            var projectTask = _context.ProjectTasks
                 .Single(_ => _.Id == projectTaskId);
             projectTask.Title.Should().Be(addProjectTaskDto.Title);
             projectTask.StartDate.Should().Be(addProjectTaskDto.StartDate);
             projectTask.EndDate.Should().Be(addProjectTaskDto.EndDate);
             projectTask.ProjectId.Should().Be(addProjectTaskDto.ProjectId);
+        }
+
+        [Fact]
+        private async Task Get_project_task_by_id()
+        {
+            var user = UserFactory.GenerateUser(context: _context);
+            _context.SaveChanges();
+            var project = ProjectFactory.GenrateProject(_context, user.Id);
+            _context.SaveChanges();
+            var projectTask = ProjectTaskFactory.GenerateProjectTask(_context, project.Id);
+            _context.SaveChanges();
+
+            var getProjectTask = await _services.GetById(projectTask.Id);
+
+            getProjectTask.Title.Should().Be(projectTask.Title);
+            getProjectTask.StartDate.Should().Be(projectTask.StartDate);
+            getProjectTask.EndDate.Should().Be(projectTask.EndDate);
+            getProjectTask.ProjectId.Should().Be(projectTask.ProjectId);
         }
     }
 }

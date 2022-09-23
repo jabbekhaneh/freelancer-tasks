@@ -32,6 +32,6 @@ public class EFdbApplication : DbContext
     #endregion
     #region Prjects
     public DbSet<Project> Projects { get; set; }
-    public DbSet<ProjectTask> ProjetcTasks { get; set; }
+    public DbSet<ProjectTask> ProjectTasks { get; set; }
     #endregion
 }
