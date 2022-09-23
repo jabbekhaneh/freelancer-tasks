@@ -2,5 +2,5 @@
 
 public interface ProjectRepository
 {
-
+    Task Add(Project project);
 }

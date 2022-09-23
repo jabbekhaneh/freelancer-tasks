@@ -7,7 +7,7 @@ namespace Portal.EF;
 public class EFdbApplication : DbContext
 {
     public static string _ConnectionString { get; set; } = "data source =.; initial catalog =dbFreeLancerContext; integrated security = True; MultipleActiveResultSets=True";
-
+    public bool UseSqlServer { get; set; }
     public EFdbApplication()
     {
 
@@ -18,7 +18,8 @@ public class EFdbApplication : DbContext
     }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlServer(_ConnectionString);
+        if (UseSqlServer)
+            optionsBuilder.UseSqlServer(_ConnectionString); ;
         base.OnConfiguring(optionsBuilder);
     }
     protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)

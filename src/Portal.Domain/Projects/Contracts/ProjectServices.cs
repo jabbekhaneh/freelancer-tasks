@@ -1,0 +1,9 @@
+﻿using Portal.Domain.Projects.DTOs;
+
+namespace Portal.Domain.Projects.Contracts
+{
+    public interface ProjectServices
+    {
+        Task<int> Add(AddProjectDto project, int userId,string? image);
+    }
+}
