@@ -57,4 +57,9 @@ public class ProjectApplicationServices : ProjectServices
         await _unitOfWork.CommitAsync();
 
     }
+
+    public async Task<GetAllProjectsDto> GetAll(int userId,int pageId, int take, string? search)
+    {
+        return await _repository.GetByAll(userId,pageId, take, search);
+    }
 }

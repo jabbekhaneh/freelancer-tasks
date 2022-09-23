@@ -1,10 +1,12 @@
 ﻿using FluentAssertions;
 using Portal.ApplicationServices.Projects;
+using Portal.ApplicationServices.Projects.Exceptions;
 using Portal.Domain;
 using Portal.Domain.Projects.Contracts;
 using Portal.EF;
 using Portal.EF.Projects;
 using Portal.Test.Factories;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
@@ -80,5 +82,32 @@ public class ProjectApplicationServicesTest
         getProject.StartDate.Should().Be(editProjectDto.StartDate);
         getProject.EndDate.Should().Be(editProjectDto.EndDate);
         getProject.PriceTask.Should().Be(editProjectDto.PriceTask);
+    }
+
+    [Fact]
+    private async Task Update_project_exception_when_project_isEnd()
+    {
+        var user = UserFactory.GenerateUser(_context);
+        _context.SaveChanges();
+        var project = ProjectFactory.GenrateProject(_context, user.Id,true);
+        _context.SaveChanges();
+        var editProjectDto = ProjectFactory.GenerateEditProjectDto();
+
+        Func<Task> exepted = () => _service.Update(project.Id, editProjectDto);
+
+        exepted.Should().ThrowAsync<ProjectIsEndException>();
+    }
+
+    [Fact]
+    private async Task Get_all()
+    {
+        var user = UserFactory.GenerateUser(_context);
+        _context.SaveChanges();
+        ProjectFactory.GenrateProjects(_context, user.Id);
+        _context.SaveChanges();
+
+        var projects = await _service.GetAll(user.Id, 1, 10, "");
+
+        projects.Projects.Count().Should().Be(3);
     }
 }
