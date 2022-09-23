@@ -1,4 +1,5 @@
-﻿using Portal.Domain;
+﻿using Portal.ApplicationServices.Projects.Exceptions;
+using Portal.Domain;
 using Portal.Domain.Projects;
 using Portal.Domain.Projects.Contracts;
 using Portal.Domain.Projects.DTOs;
@@ -41,5 +42,19 @@ public class ProjectApplicationServices : ProjectServices
     public async Task<GetProjectDto> GetById(int projectId)
     {
         return  await _repository.GetById(projectId);
+    }
+
+    public async Task Update(int projectId, EditProjectDto editProjectDto)
+    {
+        var project=await _repository.FindById(projectId);
+        if (project.IsEnd || project.EndDate < DateTime.Now)
+            throw new ProjectIsEndException();
+        project.Title=editProjectDto.Title;
+        project.EndDate = editProjectDto.EndDate;
+        project.StartDate = editProjectDto.StartDate;
+        project.PriceTask = editProjectDto.PriceTask;
+
+        await _unitOfWork.CommitAsync();
+
     }
 }

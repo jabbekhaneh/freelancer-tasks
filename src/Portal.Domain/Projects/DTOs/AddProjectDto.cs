@@ -11,7 +11,6 @@ namespace Portal.Domain.Projects.DTOs
         public DateTime StartDate { get; set; }
         [Required]
         public DateTime EndDate { get; set; }
-        public bool IsEnd { get; set; }
         public IFormFile? Image { get; set; }
         [Required]
         public decimal PriceTask { get; set; }

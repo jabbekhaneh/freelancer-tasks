@@ -54,7 +54,7 @@ public class ProjectApplicationServicesTest
         var project = ProjectFactory.GenrateProject(_context, user.Id);
         _context.SaveChanges();
 
-        var getProject= await _service.GetById(project.Id);
+        var getProject = await _service.GetById(project.Id);
 
         getProject.Title.Should().Be(project.Title);
         getProject.StartDate.Should().Be(project.StartDate);
@@ -62,5 +62,23 @@ public class ProjectApplicationServicesTest
         getProject.PriceTask.Should().Be(project.PriceTask);
         getProject.IsEnd.Should().Be(project.IsEnd);
 
+    }
+
+    [Fact]
+    private async Task Update_project()
+    {
+        var user = UserFactory.GenerateUser(_context);
+        _context.SaveChanges();
+        var project = ProjectFactory.GenrateProject(_context, user.Id);
+        _context.SaveChanges();
+        var editProjectDto = ProjectFactory.GenerateEditProjectDto();
+
+        await _service.Update(project.Id, editProjectDto);
+
+        var getProject = _context.Projects.First(_ => _.Id == project.Id);
+        getProject.Title.Should().Be(editProjectDto.Title);
+        getProject.StartDate.Should().Be(editProjectDto.StartDate);
+        getProject.EndDate.Should().Be(editProjectDto.EndDate);
+        getProject.PriceTask.Should().Be(editProjectDto.PriceTask);
     }
 }
