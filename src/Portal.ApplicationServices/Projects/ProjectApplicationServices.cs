@@ -37,4 +37,9 @@ public class ProjectApplicationServices : ProjectServices
             StartDate = project.StartDate,
         };
     }
+
+    public async Task<GetProjectDto> GetById(int projectId)
+    {
+        return  await _repository.GetById(projectId);
+    }
 }

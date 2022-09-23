@@ -30,12 +30,12 @@ public class ProjectApplicationServicesTest
     [Fact]
     private async Task Add_Project()
     {
-        var user= UserFactory.GenerateUser(_context);
+        var user = UserFactory.GenerateUser(_context);
         _context.SaveChanges();
-        int userId= user.Id;
+        int userId = user.Id;
         var AddProjectDto = ProjectFactory.GenerateAddProjectDto();
-        
-        var projectIdActual= await _service.Add(AddProjectDto, userId, "");
+
+        var projectIdActual = await _service.Add(AddProjectDto, userId, "");
 
         var project = _context.Projects.Single(_ => _.Id == projectIdActual);
         project.Title.Should().Be(AddProjectDto.Title);
@@ -43,6 +43,24 @@ public class ProjectApplicationServicesTest
         project.EndDate.Should().Be(AddProjectDto.EndDate);
         project.PriceTask.Should().Be(AddProjectDto.PriceTask);
         project.UserId.Should().Be(user.Id);
+
+    }
+
+    [Fact]
+    private async Task Get_project_by_id()
+    {
+        var user = UserFactory.GenerateUser(_context);
+        _context.SaveChanges();
+        var project = ProjectFactory.GenrateProject(_context, user.Id);
+        _context.SaveChanges();
+
+        var getProject= await _service.GetById(project.Id);
+
+        getProject.Title.Should().Be(project.Title);
+        getProject.StartDate.Should().Be(project.StartDate);
+        getProject.EndDate.Should().Be(project.EndDate);
+        getProject.PriceTask.Should().Be(project.PriceTask);
+        getProject.IsEnd.Should().Be(project.IsEnd);
 
     }
 }
