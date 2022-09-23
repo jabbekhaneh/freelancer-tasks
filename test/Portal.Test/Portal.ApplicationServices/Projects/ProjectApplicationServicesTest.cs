@@ -95,7 +95,7 @@ public class ProjectApplicationServicesTest
 
         Func<Task> exepted = () => _service.Update(project.Id, editProjectDto);
 
-        exepted.Should().ThrowAsync<ProjectIsEndException>();
+        await exepted.Should().ThrowAsync<ProjectIsEndException>();
     }
 
     [Fact]
