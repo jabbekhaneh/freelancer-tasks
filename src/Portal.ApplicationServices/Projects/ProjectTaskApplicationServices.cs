@@ -48,4 +48,9 @@ public class ProjectTaskApplicationServices : ProjectTaskServices
         projectTask.EndDate=editProjectTask.EndDate;
         await _unitOfWork.CommitAsync();
     }
+
+    public async Task<GetAllProjectTasksByProjectDto> GetAllByProjectId(int projectId)
+    {
+        return await _repository.GetAll(projectId);
+    }
 }

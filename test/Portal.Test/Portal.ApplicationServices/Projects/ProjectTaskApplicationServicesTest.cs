@@ -86,5 +86,23 @@ namespace Portal.Test.Portal.ApplicationServices.Projects
             getProjectTask.StartDate.Should().Be(editProjectTaskDto.StartDate);
             getProjectTask.EndDate.Should().Be(editProjectTaskDto.EndDate);
         }
+
+        [Fact]
+        private async Task Get_all_project_tasks_by_project_id()
+        {
+
+            var user = UserFactory.GenerateUser(context: _context);
+            _context.SaveChanges();
+            var project = ProjectFactory.GenrateProject(_context, user.Id);
+            _context.SaveChanges();
+            var projectTasks = ProjectTaskFactory.GenerateProjectTasks(_context, project.Id);
+            _context.SaveChanges();
+            
+
+            var getProjectTasks= await _services.GetAllByProjectId(project.Id);
+
+
+            getProjectTasks.ProjectTasks.Count().Should().Be(2);
+        }
     }
 }
