@@ -66,5 +66,25 @@ namespace Portal.Test.Portal.ApplicationServices.Projects
             getProjectTask.EndDate.Should().Be(projectTask.EndDate);
             getProjectTask.ProjectId.Should().Be(projectTask.ProjectId);
         }
+
+        [Fact]
+        private async Task Update_project_task()
+        {
+            var user = UserFactory.GenerateUser(context: _context);
+            _context.SaveChanges();
+            var project = ProjectFactory.GenrateProject(_context, user.Id);
+            _context.SaveChanges();
+            var projectTask = ProjectTaskFactory.GenerateProjectTask(_context, project.Id);
+            _context.SaveChanges();
+            var editProjectTaskDto = ProjectTaskFactory.GenerateEditProjectTaskDto(project.Id);
+
+            await _services.Update(projectTask.Id, editProjectTaskDto);
+
+            var getProjectTask=_context.ProjectTasks
+                .FirstOrDefault(_=>_.Id==projectTask.Id);
+            getProjectTask.Title.Should().Be(editProjectTaskDto.Title);
+            getProjectTask.StartDate.Should().Be(editProjectTaskDto.StartDate);
+            getProjectTask.EndDate.Should().Be(editProjectTaskDto.EndDate);
+        }
     }
 }

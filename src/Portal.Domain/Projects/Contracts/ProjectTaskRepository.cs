@@ -6,5 +6,6 @@ namespace Portal.Domain.Projects.Contracts
     {
         Task Add(ProjectTask newProjectTask);
         Task<GetProjectTaskDto> GetById(int projectTaskId);
+        Task<ProjectTask> FindById(int projectTaskId);
     }
 }

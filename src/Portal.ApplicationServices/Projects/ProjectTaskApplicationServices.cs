@@ -39,4 +39,13 @@ public class ProjectTaskApplicationServices : ProjectTaskServices
     {
         return await _repository.GetById(projectTaskId);
     }
+
+    public async Task Update(int projectTaskId, EditProjectTaskDto editProjectTask)
+    {
+        var projectTask= await _repository.FindById(projectTaskId);
+        projectTask.Title = editProjectTask.Title;
+        projectTask.StartDate=editProjectTask.StartDate;
+        projectTask.EndDate=editProjectTask.EndDate;
+        await _unitOfWork.CommitAsync();
+    }
 }

@@ -20,6 +20,12 @@ public class EFProjectTaskRepository : ProjectTaskRepository
         await _context.ProjectTasks.AddAsync(newProjectTask);
     }
 
+    public async Task<ProjectTask> FindById(int projectTaskId)
+    {
+        return await _context.ProjectTasks
+            .SingleOrDefaultAsync(_=>_.Id==projectTaskId);
+    }
+
     public async Task<GetProjectTaskDto> GetById(int projectTaskId)
     {
         return await _context.ProjectTasks
