@@ -1,0 +1,61 @@
+﻿@model Portal.Domain.Projects.DTOs.AddProjectDto
+<div class="row">
+    <div class="col-md-4">
+        <a asp-controller="Project" asp-action="Index" class="btn btn-primary">Back</a>
+    </div>
+</div>
+<div class="row justify-content-center">
+
+    <div class="col-md-6">
+        <div class="card shadow-sm ">
+            <div class="card-header text-center">
+                <h1 class="link-info">Create project</h1>
+            </div>
+            <div class="card-body">
+
+                <form asp-action="Create" asp-controller="Project" method="post" enctype="multipart/form-data">
+
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                    <div class="input-group input-group-sm mb-3">
+                        <span class="input-group-text" id="inputGroup-sizing-sm">Title</span>
+                        <input type="text" class="form-control" asp-for="Title">
+                    </div>
+
+                    <span asp-validation-for="StartDate" class="text-danger"></span>
+                    <div class="input-group input-group-sm mb-3">
+                        <span class="input-group-text" id="inputGroup-sizing-sm">StartDate</span>
+                        <input type="date" class="form-control" asp-for="StartDate">
+                    </div>
+
+                    <span asp-validation-for="EndDate" class="text-danger"></span>
+                    <div class="input-group input-group-sm mb-3">
+                        <span class="input-group-text" id="inputGroup-sizing-sm">EndDate</span>
+                        <input type="date" class="form-control" asp-for="EndDate">
+                    </div>
+
+
+
+                    <span asp-validation-for="PriceTask" class="text-danger"></span>
+                    <div class="input-group input-group-sm mb-3">
+                        <span class="input-group-text" id="inputGroup-sizing-sm">PriceTask</span>
+                        <input type="number" class="form-control" asp-for="PriceTask">
+                    </div>
+
+
+                    <span asp-validation-for="File" class="text-danger"></span>
+                    <div class="input-group input-group-sm mb-3">
+                        <input type="file" class="form-control" name="File">
+                    </div>
+
+
+                    <div class="row justify-content-center">
+                        <div class="col-md-4">
+                            <input type="submit" value="Save" class="btn btn-success w-100" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>

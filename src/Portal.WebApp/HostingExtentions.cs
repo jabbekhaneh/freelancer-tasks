@@ -1,9 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
+using Portal.ApplicationServices.Projects;
 using Portal.ApplicationServices.Users;
 using Portal.Domain;
+using Portal.Domain.Projects.Contracts;
 using Portal.Domain.Users.Contracts;
 using Portal.EF;
+using Portal.EF.Projects;
 using Portal.EF.Users;
 
 namespace Portal.WebApp;
@@ -16,7 +19,9 @@ public static class HostingExtentions
         builder.Services.AddTransient<UnitOfWork, EFUnitOfWork>();
         builder.Services.AddTransient<UserRepository, EFUserRepository>();
         builder.Services.AddTransient<UserService, UserApplicationServices>();
-
+        builder.Services.AddTransient<ProjectServices, ProjectApplicationServices>();
+        builder.Services.AddTransient<ProjectRepository, EFProjectRepository>();
+        
         #endregion
 
         #region DatabaseConfigs 

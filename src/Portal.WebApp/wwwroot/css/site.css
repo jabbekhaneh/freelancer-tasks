@@ -22,3 +22,7 @@ body {
 a{
     text-decoration:none;
 }
+.navbar-brand {
+    color: #712cf9 !important;
+    font-weight: 700;
+}
