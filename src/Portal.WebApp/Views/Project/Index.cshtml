@@ -1,1 +1,54 @@
-﻿<h2>PROJECTS</h2>
+﻿@model Portal.Domain.Projects.DTOs.GetAllProjectsDto
+
+<h2 class="text-primary text-center">YOUR WORKSPACES</h2>
+<div class="row">
+    <div class="col-md-4 p-3">
+        <a asp-controller="Project" asp-action="Create" class="btn btn-success">Create Project</a>
+    </div>
+</div>
+
+<div class="row">
+    @{
+        foreach (var project in Model.Projects)
+        {
+            <div class="col-md-3">
+                <div class="card">
+                    @if (!string.IsNullOrEmpty(project.Image))
+                    {
+                        <img src="/@project.Image" class="card-img-top" height="300" alt="@project.Title">
+                    }
+                    else
+                    {
+                        <img src="/no-image.png" class="card-img-top" height="300" alt="@project.Title">
+                    }
+                    <div class="card-body">
+                        <h5 class="card-title">@project.Title</h5>
+                        <div class="card-text">
+                            <p class="text-dark">Start date : @project.StartDate </p>
+                            <p class="text-dark">End date : @project.EndDate </p>
+                            <p class="text-dark"> Price task : @project.PriceTask</p>
+                        </div>
+                        <a href="#" class="btn btn-warning">Tasks</a>
+                        <a href="#" class="btn btn-primary">Edit</a>
+                        <a href="#" class="btn btn-primary">Reposrt</a>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+
+
+    <div class="row">
+        
+        <div class="col-md-6 p-4">
+            <div class="btn-group" role="group" aria-label="First group">
+                @for (var i = 1; i <= Model.PageSize ; i++)
+                {
+                    <a  href="/Project/Index?pageId=@i" class="btn btn-outline-secondaryc @(i==Model.PageId?"active":"") ">@i</a>
+                    
+                }
+
+            </div>
+        </div>
+    </div>
+</div>

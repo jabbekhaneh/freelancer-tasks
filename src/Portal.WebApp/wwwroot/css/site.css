@@ -26,3 +26,7 @@ a{
     color: #712cf9 !important;
     font-weight: 700;
 }
+.active {
+    background-color: #712cf9 !important;
+    color:#fff !important;
+}

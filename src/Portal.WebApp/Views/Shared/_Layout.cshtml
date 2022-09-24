@@ -27,17 +27,15 @@
                         </li>
                         @if (User.Identity.IsAuthenticated)
                         {
-                            
-                             <li class="nav-item right">
-                                <a class="nav-link text-dark">@User.Identity.Name</a>
+
+
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Project">Workspaces</a>
                             </li>
 
-                             <li class="nav-item">
-                                <a class="nav-link text-dark" href="/Logout">Logout</a>
-                            </li>
 
-                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Project" asp-action="Create">Create Project</a>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark logout" href="/Logout">Logout</a>
                             </li>
 
                         }
@@ -51,6 +49,8 @@
                             </li>
                         }
                     </ul>
+
+
                 </div>
             </div>
         </nav>

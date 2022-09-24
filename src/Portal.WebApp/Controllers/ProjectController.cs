@@ -15,9 +15,12 @@ namespace Portal.WebApp.Controllers
             _projectServices = projectServices;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index(int pageId = 1, int take = 4, string search = "")
         {
-            return View();
+            var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            var projects = await _projectServices
+                .GetAll(userId, pageId, take, search);
+            return View(projects);
         }
 
         public IActionResult Create()
@@ -30,6 +33,11 @@ namespace Portal.WebApp.Controllers
         {
             if (!ModelState.IsValid)
                 return View(projectDto);
+            if(projectDto.EndDate < projectDto.StartDate)
+            {
+                ModelState.AddModelError("EndDate", "not match data");
+                return View(projectDto);
+            }
             string image = string.Empty;
             var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             if (projectDto.File != null)
@@ -42,11 +50,11 @@ namespace Portal.WebApp.Controllers
 
         private string UploadImage(IFormFile file)
         {
-           return UploadHelper.Upload(file, "wwwroot");
-            
+            return UploadHelper.Upload(file, "wwwroot");
+
         }
 
-        
+
     }
 
 }
