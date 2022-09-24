@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.EntityFrameworkCore;
 using Portal.ApplicationServices.Users;
 using Portal.Domain;
 using Portal.Domain.Users.Contracts;
@@ -35,7 +36,24 @@ public static class HostingExtentions
 
 
         #endregion
+        builder.Services.AddSession();
+        builder.Services.AddAuthentication(options =>
+        {
+            options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
 
+        }).AddCookie(options =>
+        {
+            options.LoginPath = "/login";
+            options.LogoutPath = "/Logout";
+            options.Cookie.Name = Guid.NewGuid().ToString();
+            options.AccessDeniedPath = "/login";
+            options.SlidingExpiration = false;
+            options.ExpireTimeSpan = TimeSpan.FromMinutes(2022);
+            options.Cookie.HttpOnly = true;
+            options.Cookie.SameSite = SameSiteMode.Lax;
+        });
         builder.Services.AddControllersWithViews();
         return builder.Build();
     }
@@ -56,7 +74,9 @@ public static class HostingExtentions
 
         app.UseRouting();
 
+        app.UseAuthentication();
         app.UseAuthorization();
+
 
         app.MapControllerRoute(
             name: "default",

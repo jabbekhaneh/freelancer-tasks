@@ -23,4 +23,11 @@ public class EFUserRepository : UserRepository
         return await _context.Users
             .AnyAsync(_=>_.UserName == userName);
     }
+
+    public async Task<User> LogIn(string username, string passwordHash)
+    {
+        return await _context.Users
+            .FirstOrDefaultAsync(_=>_.UserName==username &&
+         _.PasswordHash==passwordHash);
+    }
 }

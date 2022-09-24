@@ -38,4 +38,10 @@ public class UserApplicationServices : UserService
         };
         return newUser;
     }
+
+    public async Task<User> LogIn(LogInDto logIn)
+    {
+        return  await _userRepository
+            .LogIn(logIn.UserName,HashHelper.EncryptString(logIn.Password));
+    }
 }

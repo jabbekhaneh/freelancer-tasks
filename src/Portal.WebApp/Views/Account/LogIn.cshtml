@@ -1,1 +1,44 @@
-﻿
+﻿@model Portal.Domain.Users.DTOs.LogInDto
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow-sm ">
+            <div class="card-header text-center">
+                <h1 class="link-info">LogIn</h1>
+            </div>
+            <div class="card-body">
+
+                <form asp-action="login" method="post">
+
+
+
+                    <span asp-validation-for="UserName" class="text-danger"></span>
+                    <div class="input-group input-group-sm mb-3">
+                        <span class="input-group-text" id="inputGroup-sizing-sm">UserName</span>
+                        <input type="text" class="form-control" asp-for="UserName">
+                    </div>
+
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                    <div class="input-group input-group-sm mb-3">
+                        <span class="input-group-text" id="inputGroup-sizing-sm">Password</span>
+                        <input type="password" class="form-control" asp-for="Password">
+                    </div>
+
+
+
+
+                    <div class="row justify-content-center">
+                        <div class="col-md-4">
+                            <input type="submit" value="LogIn" class="btn btn-success w-100" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer">
+                <div class="row d-flex justify-content-center text-center">
+                    <span>Create an account?  <a href="/register">Register</a></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
