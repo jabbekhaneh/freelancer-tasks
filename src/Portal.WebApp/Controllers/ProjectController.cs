@@ -103,6 +103,13 @@ public class ProjectController : Controller
     }
     #endregion
 
+    #region End PROJECT
+    public async Task<IActionResult> End(int id)
+    {
+        await _projectServices.EndProject(id);
+        return Redirect("/Project");
+    }
+    #endregion
     private string UploadImage(IFormFile file)
     {
         return UploadHelper.Upload(file, "wwwroot");

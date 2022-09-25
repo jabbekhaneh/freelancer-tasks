@@ -84,4 +84,11 @@ public class ProjectApplicationServices : ProjectServices
         
         return report;
     }
+
+    public async Task EndProject(int id)
+    {
+        var project=await _repository.FindById(id);
+        project.IsEnd = true;
+        await _unitOfWork.CommitAsync();
+    }
 }

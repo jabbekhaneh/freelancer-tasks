@@ -8,6 +8,7 @@ namespace Portal.Domain.Projects.Contracts
         Task<GetProjectDto> GetById(int projectId);
         Task Update(int projectId,EditProjectDto editProjectDto);
         Task<GetAllProjectsDto> GetAll(int userId,int pageId, int take,string? search);
+        Task EndProject(int id);
         Task<ReportProjectDto> ReportProject(int projectId);
     }
 }
