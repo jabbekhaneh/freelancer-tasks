@@ -15,17 +15,21 @@ public class ProjectTaskController : Controller
         _projectTaskServices = projectTaskServices;
     }
 
-    public async Task<IActionResult> Index(int id)
+    #region Get All Tasks
+    public async Task<IActionResult> Index(int projectId)
     {
-        var projectTasks = await _projectTaskServices.GetAllByProjectId(id);
+        var projectTasks = await _projectTaskServices.GetAllByProjectId(projectId);
         return View(projectTasks);
     }
-    public IActionResult Create(int id)
+    #endregion
+
+    #region Create Task
+    public IActionResult Create(int projectId)
     {
-        return View(new AddProjectTaskDto { ProjectId =id});
+        return View(new AddProjectTaskDto { ProjectId = projectId });
     }
     [HttpPost]
-    public async Task<IActionResult> Create(int id,AddProjectTaskDto addtask)
+    public async Task<IActionResult> Create(int projectId, AddProjectTaskDto addtask)
     {
         if (!ModelState.IsValid)
             return View(addtask);
@@ -35,6 +39,37 @@ public class ProjectTaskController : Controller
             return View(addtask);
         }
         await _projectTaskServices.Add(addtask);
-        return Redirect("/ProjectTask/Index/" + id);
+        return RedirectToAction(nameof(ProjectTaskController.Index), new { projectId = projectId });
     }
+    #endregion
+
+    #region Edit Task
+    public async Task<IActionResult> Edit(int id)
+    {
+        var task = await _projectTaskServices.GetById(id);
+        return View(new EditProjectTaskDto
+        {
+            ProjectId = task.ProjectId,
+            EndDate = task.EndDate,
+            StartDate = task.StartDate,
+            Title=task.Title,
+            
+        });
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Edit(int id, EditProjectTaskDto editProjectTask)
+    {
+        if (!ModelState.IsValid)
+            return View(editProjectTask);
+        if (editProjectTask.EndDate < editProjectTask.StartDate)
+        {
+            ModelState.AddModelError("EndDate", "not match data");
+            return View(editProjectTask);
+        }
+        await _projectTaskServices.Update(id, editProjectTask);
+        return RedirectToAction(nameof(ProjectTaskController.Index), new { projectId = editProjectTask.ProjectId });
+    }
+    #endregion
+
 }
