@@ -82,9 +82,9 @@ namespace Portal.Test.Portal.ApplicationServices.Projects
 
             var getProjectTask=_context.ProjectTasks
                 .FirstOrDefault(_=>_.Id==projectTask.Id);
-            getProjectTask.Title.Should().Be(editProjectTaskDto.Title);
-            getProjectTask.StartDate.Should().Be(editProjectTaskDto.StartDate);
-            getProjectTask.EndDate.Should().Be(editProjectTaskDto.EndDate);
+            getProjectTask?.Title.Should().Be(editProjectTaskDto.Title);
+            getProjectTask?.StartDate.Should().Be(editProjectTaskDto.StartDate);
+            getProjectTask?.EndDate.Should().Be(editProjectTaskDto.EndDate);
         }
 
         [Fact]

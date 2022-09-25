@@ -10,12 +10,11 @@ namespace Portal.WebApp.Controllers;
 public class ProjectController : Controller
 {
     private readonly ProjectServices _projectServices;
-    private readonly ProjectTaskServices _projectTaskServices;
-    public ProjectController(ProjectServices projectServices,
-        ProjectTaskServices projectTaskServices)
+
+    public ProjectController(ProjectServices projectServices)
     {
         _projectServices = projectServices;
-        _projectTaskServices = projectTaskServices;
+
     }
 
     #region Get all projects
@@ -90,7 +89,13 @@ public class ProjectController : Controller
     }
     #endregion
 
-
+    #region Report
+    public async Task<IActionResult> Report(int id)
+    {
+        var report = await _projectServices.ReportProject(id);
+        return View(report);
+    }
+    #endregion
     private string UploadImage(IFormFile file)
     {
         return UploadHelper.Upload(file, "wwwroot");

@@ -19,6 +19,7 @@ public class ProjectApplicationServicesTest
     private EFdbApplication _context;
     private ProjectServices _service;
     private ProjectRepository _projectRepository;
+    private ProjectTaskRepository _taskRepository;
     private UnitOfWork _unitOfWork;
     public ProjectApplicationServicesTest()
     {
@@ -26,7 +27,8 @@ public class ProjectApplicationServicesTest
         _context = _memoryContext.CreateDataContext<EFdbApplication>();
         _projectRepository = new EFProjectRepository(_context);
         _unitOfWork = new EFUnitOfWork(_context);
-        _service = new ProjectApplicationServices(_projectRepository, _unitOfWork);
+        _taskRepository=new EFProjectTaskRepository(_context);
+        _service = new ProjectApplicationServices(_projectRepository, _unitOfWork, _taskRepository);
     }
 
     [Fact]

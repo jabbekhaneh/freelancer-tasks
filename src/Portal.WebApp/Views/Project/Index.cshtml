@@ -29,8 +29,8 @@
                             <p class="text-dark"> Price task : @project.PriceTask</p>
                         </div>
                         <a asp-controller="ProjectTask" asp-action="Index" asp-route-projectId="@project.Id" class="btn btn-warning">Tasks</a>
-                        <a asp-controller="Project" asp-action="EditTask" asp-route-id="@project.Id" class="btn btn-primary">Edit</a>
-                        <a href="#" class="btn btn-primary">Reposrt</a>
+                        <a asp-controller="Project" asp-action="Edit" asp-route-id="@project.Id" class="btn btn-primary">Edit</a>
+                        <a asp-controller="Project" asp-action="Report" asp-route-id="@project.Id" class="btn btn-primary">Report</a>
                     </div>
                 </div>
             </div>

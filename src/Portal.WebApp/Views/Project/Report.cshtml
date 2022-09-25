@@ -1,0 +1,33 @@
+﻿@model ReportProjectDto
+
+
+<div class="row">
+    <div class="col-md-6">
+        <table class="table">
+            <thead>
+                <tr>
+                    
+                    <th scope="col">Title</th>
+                    <th scope="col">Total hours</th>
+                    <th scope="col">Price task hours</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                  
+                     <td>@Model.Title</td>
+                    <td>@(Model.TotalHours / 60) hours-(@Model.TotalHours minutes)</td>
+                    <td>@Model.PriceTaskHours $</td>
+                </tr>
+                <tr>
+                  
+                    <td colspan="2">
+                        Total factor
+                        
+                    </td>
+                    <td class="text-primary"><b>@Model.TotalFactor</b> $</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
