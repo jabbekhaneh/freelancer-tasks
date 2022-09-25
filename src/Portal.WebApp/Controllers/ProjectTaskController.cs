@@ -9,15 +9,23 @@ namespace Portal.WebApp.Controllers;
 public class ProjectTaskController : Controller
 {
     private readonly ProjectTaskServices _projectTaskServices;
-
-    public ProjectTaskController(ProjectTaskServices projectTaskServices)
+    private readonly ProjectServices _projectServices;
+    public ProjectTaskController(ProjectTaskServices projectTaskServices,
+        ProjectServices projectServices)
     {
         _projectTaskServices = projectTaskServices;
+        _projectServices = projectServices;
     }
 
     #region Get All Tasks
     public async Task<IActionResult> Index(int projectId)
     {
+        var project = await _projectServices.GetById(projectId);
+        if (project.IsEnd || project.EndDate < DateTime.Now)
+        {
+            TempData["msgDanger"] = $"{project.Title} end project";
+            return Redirect("/Project");
+        }
         var projectTasks = await _projectTaskServices.GetAllByProjectId(projectId);
         return View(projectTasks);
     }
@@ -52,8 +60,8 @@ public class ProjectTaskController : Controller
             ProjectId = task.ProjectId,
             EndDate = task.EndDate,
             StartDate = task.StartDate,
-            Title=task.Title,
-            
+            Title = task.Title,
+
         });
     }
 
@@ -69,6 +77,31 @@ public class ProjectTaskController : Controller
         }
         await _projectTaskServices.Update(id, editProjectTask);
         return RedirectToAction(nameof(ProjectTaskController.Index), new { projectId = editProjectTask.ProjectId });
+    }
+    #endregion
+
+    #region Remove Task
+    public async Task<IActionResult> Remove(int id)
+    {
+        var task = await _projectTaskServices.GetById(id);
+        var project = await _projectServices.GetById(task.ProjectId);
+        if (project.IsEnd || project.EndDate < DateTime.Now)
+        {
+            TempData["msgDanger"] = $"{project.Title} end project";
+            return Redirect("/Project");
+        }
+        return View(task);
+    }
+
+    public async Task<IActionResult> ConfirmRemove(int id, int projectId)
+    {
+        var result = await _projectTaskServices.Remove(id);
+        if (!result.IsSucces)
+            TempData["msgDanger"] = result.Message;
+        else
+            TempData["msgSuccess"] = result.Message;
+        return RedirectToAction(nameof(ProjectTaskController.Index),
+            new { projectId = projectId });
     }
     #endregion
 

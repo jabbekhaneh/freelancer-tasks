@@ -104,5 +104,23 @@ namespace Portal.Test.Portal.ApplicationServices.Projects
 
             getProjectTasks.ProjectTasks.Count().Should().Be(2);
         }
+
+        [Fact]
+        private async Task remove_project_task()
+        {
+            var user = UserFactory.GenerateUser(context: _context);
+            _context.SaveChanges();
+            var project = ProjectFactory.GenrateProject(_context, user.Id);
+            _context.SaveChanges();
+            var projectTask = ProjectTaskFactory.GenerateProjectTask(_context, project.Id);
+            _context.SaveChanges();
+            
+
+            await _services.Remove(projectTask.Id);
+
+            var getProjectTask = _context.ProjectTasks
+                .FirstOrDefault(_ => _.Id == projectTask.Id);
+            getProjectTask.Should().BeNull();
+        }
     }
 }

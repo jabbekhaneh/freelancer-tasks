@@ -78,10 +78,10 @@ public class ProjectApplicationServices : ProjectServices
         foreach (var task in tasks.ProjectTasks)
         {
             var minutes = (int)(task.EndDate - task.StartDate).TotalMinutes;
-            report.TotalHours += minutes;
+            report.TotalMinute += minutes;
         }
-        ;
-        report.TotalFactor = (report.TotalHours / 60) * project.PriceTask;
+        report.TotalFactor = (report.TotalMinute / 60) * project.PriceTask;
+        
         return report;
     }
 }

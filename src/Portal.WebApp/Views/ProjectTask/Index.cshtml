@@ -1,12 +1,12 @@
-﻿@model Portal.Domain.Projects.DTOs.GetAllProjectTasksByProjectDto
+﻿@model GetAllProjectTasksByProjectDto
 <h2 class="text-primary text-center">@Model.Title-WORKSPACES</h2>
 <div class="row p-3">
     <div class="col-sm-4">
         <a asp-controller="Project" class="btn btn-primary">Back</a>
-         <a asp-controller="ProjectTask" asp-action="Create" asp-route-projectId="@Model.ProjectId"
-             class="btn btn-success">Create Task</a>
+        <a asp-controller="ProjectTask" asp-action="Create" asp-route-projectId="@Model.ProjectId"
+           class="btn btn-success">Create Task</a>
     </div>
-    
+
 </div>
 
 <div class="row">
@@ -15,7 +15,7 @@
         {
             <div class="col-md-3 p-3">
                 <div class="card">
-                   
+
                     <div class="card-body">
                         <h5 class="card-title">@task.Title</h5>
                         <div class="card-text">
@@ -23,6 +23,7 @@
                             <p class="text-dark">End date : @task.EndDate </p>
                         </div>
                         <a asp-controller="ProjectTask" asp-action="Edit" asp-route-id="@task.Id" class="btn btn-primary">Edit</a>
+                        <a asp-controller="ProjectTask" asp-action="Remove" asp-route-id="@task.Id" class="btn btn-danger">delete</a>
                     </div>
 
                 </div>
@@ -35,8 +36,6 @@
 
         <div class="col-md-6 p-4">
             <div class="btn-group" role="group" aria-label="First group">
-               
-
             </div>
         </div>
     </div>

@@ -8,5 +8,6 @@ namespace Portal.Domain.Projects.Contracts
         Task<GetProjectTaskDto> GetById(int projectTaskId);
         Task<ProjectTask> FindById(int projectTaskId);
         Task<GetAllProjectTasksByProjectDto> GetAll(int projectId);
+        void Remove(ProjectTask task);
     }
 }

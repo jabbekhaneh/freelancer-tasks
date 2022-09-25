@@ -1,0 +1,42 @@
+﻿@model GetProjectTaskDto
+<div class="row">
+    <div class="col-md-4">
+        <a asp-controller="ProjectTask" asp-action="index" asp-route-projectId="@Model.ProjectId" class="btn btn-primary">Back</a>
+    </div>
+</div>
+
+<div class="row justify-content-center">
+
+    <div class="col-md-6">
+        <div class="card shadow-sm ">
+            <div class="card-header text-center">
+                <h6 class="link-info">Do you want remove @Model.Title ? </h6>
+            </div>
+            <div class="card-body">
+
+
+                <div class="row">
+                    <div class="col-md-4">
+
+                        <a asp-controller="ProjectTask" asp-action="Index"
+                           asp-route-projectId="@Model.ProjectId"
+                           class="btn btn-danger w-100">
+                            Back
+                        </a>
+                    </div>
+                    <div class="col-md-4">
+                        <form asp-action="ConfirmRemove" asp-route-id="@Model.Id"
+                              asp-route-projectId="@Model.ProjectId"
+                              asp-controller="ProjectTask" method="post">
+                            <input type="submit" value="Remove" class="btn btn-primary w-100" />
+
+                        </form>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>

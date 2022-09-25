@@ -53,4 +53,14 @@ public class ProjectTaskApplicationServices : ProjectTaskServices
     {
         return await _repository.GetAll(projectId);
     }
+
+    public async Task<(bool IsSucces, string Message)> Remove(int id)
+    {
+        var task=await _repository.FindById(id);
+        if (task == null)
+            return (false, "Notfound task");
+        _repository.Remove(task);
+        await _unitOfWork.CommitAsync();
+        return (true, $"Success  remove task({task.Title})");
+    }
 }

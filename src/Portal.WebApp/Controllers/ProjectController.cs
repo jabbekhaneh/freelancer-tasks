@@ -60,6 +60,12 @@ public class ProjectController : Controller
     public async Task<IActionResult> Edit(int id)
     {
         var project = await _projectServices.GetById(id);
+
+        if (project.IsEnd || project.EndDate < DateTime.Now)
+        {
+            TempData["msgDanger"] = $"{project.Title} end project";
+            return Redirect("/Project");
+        }
         return View(new EditProjectDto
         {
             Image = project.Image,
@@ -96,6 +102,7 @@ public class ProjectController : Controller
         return View(report);
     }
     #endregion
+
     private string UploadImage(IFormFile file)
     {
         return UploadHelper.Upload(file, "wwwroot");

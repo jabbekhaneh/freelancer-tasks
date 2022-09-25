@@ -8,4 +8,5 @@ public interface ProjectTaskServices
     Task<GetProjectTaskDto> GetById(int projectTaskId);
     Task Update(int projectTaskId,EditProjectTaskDto editProjectTask);
     Task<GetAllProjectTasksByProjectDto> GetAllByProjectId(int projectId);
+    Task<(bool IsSucces, string Message)> Remove(int id);
 }

@@ -47,4 +47,9 @@ public class EFProjectTaskRepository : ProjectTaskRepository
             .ProjectToType<GetProjectTaskDto>()
             .FirstOrDefaultAsync();
     }
+
+    public void Remove(ProjectTask task)
+    {
+         _context.ProjectTasks.Remove(task);
+    }
 }
