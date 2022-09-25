@@ -1,9 +1,9 @@
 ﻿@model Portal.Domain.Projects.DTOs.GetAllProjectTasksByProjectDto
-<h2 class="text-primary text-center">@Model.Title-WORKSPACES</h2>
+<h2 class="text-primary text-center">@Model.Title-WORKSPACES-@Model.ProjectId</h2>
 <div class="row p-3">
     <div class="col-sm-4">
         <a asp-controller="Project" class="btn btn-primary">Back</a>
-         <a asp-controller="Project" asp-action="Create" class="btn btn-success">Create Task</a>
+         <a href="/ProjectTask/Create/@Model.ProjectId" class="btn btn-success">Create Task</a>
     </div>
     
 </div>

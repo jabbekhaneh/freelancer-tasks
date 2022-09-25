@@ -1,0 +1,54 @@
+﻿@model Portal.Domain.Projects.DTOs.AddProjectTaskDto
+<div class="row">
+    <div class="col-md-4">
+        <a asp-controller="ProjectTask" asp-action="Index" asp-route-id="@Model.ProjectId" class="btn btn-primary">Back</a>
+    </div>
+</div>
+<div class="row justify-content-center">
+
+    <div class="col-md-6">
+        <div class="card shadow-sm ">
+            <div class="card-header text-center">
+                <h1 class="link-info">Create Task</h1>
+            </div>
+            <div class="card-body">
+
+                <form asp-action="Create" asp-route-id="@Model.ProjectId" asp-controller="ProjectTask" method="post" enctype="multipart/form-data">
+                     <input type="hidden" asp-for="ProjectId" /> 
+
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                    <div class="input-group input-group-sm mb-3">
+                        <span class="input-group-text" id="inputGroup-sizing-sm">Title</span>
+                        <input type="text" class="form-control" asp-for="Title">
+                    </div>
+
+                    <span asp-validation-for="StartDate" class="text-danger"></span>
+                    <div class="input-group input-group-sm mb-3">
+                        <span class="input-group-text" id="inputGroup-sizing-sm">StartDate</span>
+                        <input type="datetime-local" class="form-control" asp-for="StartDate">
+                    </div>
+
+                    <span asp-validation-for="EndDate" class="text-danger"></span>
+                    <div class="input-group input-group-sm mb-3">
+                        <span class="input-group-text" id="inputGroup-sizing-sm">End date</span>
+                        <input type="datetime-local" class="form-control" asp-for="EndDate">
+                    </div>
+
+
+
+                 
+
+
+
+
+                    <div class="row justify-content-center">
+                        <div class="col-md-4">
+                            <input type="submit" value="Save" class="btn btn-success w-100" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>

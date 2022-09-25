@@ -36,6 +36,7 @@ public class EFProjectTaskRepository : ProjectTaskRepository
         var project = await _context.Projects
             .SingleOrDefaultAsync(_ => _.Id == projectId);
         result.Title = project.Title;
+        result.ProjectId = project.Id;
         return result;
     }
 
