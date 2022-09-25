@@ -49,6 +49,8 @@ public class ProjectApplicationServices : ProjectServices
         var project=await _repository.FindById(projectId);
         if (project.IsEnd || project.EndDate < DateTime.Now)
             throw new ProjectIsEndException();
+        if(editProjectDto.Image!= null)
+            project.Image = editProjectDto.Image;
         project.Title=editProjectDto.Title;
         project.EndDate = editProjectDto.EndDate;
         project.StartDate = editProjectDto.StartDate;

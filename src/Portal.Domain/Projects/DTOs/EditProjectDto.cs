@@ -11,7 +11,8 @@ public class EditProjectDto
     public DateTime StartDate { get; set; }
     [Required]
     public DateTime EndDate { get; set; }
-    public IFormFile? Image { get; set; }
+    public IFormFile? File { get; set; }
+    public string? Image { get; set; }
     [Required]
     public decimal PriceTask { get; set; }
 }

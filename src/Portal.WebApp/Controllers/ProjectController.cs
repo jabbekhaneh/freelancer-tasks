@@ -33,7 +33,7 @@ namespace Portal.WebApp.Controllers
         {
             if (!ModelState.IsValid)
                 return View(projectDto);
-            if(projectDto.EndDate < projectDto.StartDate)
+            if (projectDto.EndDate < projectDto.StartDate)
             {
                 ModelState.AddModelError("EndDate", "not match data");
                 return View(projectDto);
@@ -53,6 +53,37 @@ namespace Portal.WebApp.Controllers
             return UploadHelper.Upload(file, "wwwroot");
 
         }
+        public async Task<IActionResult> Edit(int id)
+        {
+            var project = await _projectServices.GetById(id);
+            return View(new EditProjectDto
+            {
+                Image = project.Image,
+                EndDate = project.EndDate,
+                PriceTask = project.PriceTask,
+                StartDate = project.StartDate,
+                Title = project.Title,
+            });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, EditProjectDto projectDto)
+        {
+            if (!ModelState.IsValid)
+                return View(projectDto);
+            if (projectDto.EndDate < projectDto.StartDate)
+            {
+                ModelState.AddModelError("EndDate", "not match data");
+                return View(projectDto);
+            }
+            if (projectDto.File != null)
+            {
+                projectDto.Image = UploadImage(projectDto.File);
+            }
+            await _projectServices.Update(id, projectDto);
+            return Redirect("/Project");
+        }
+
 
 
     }
