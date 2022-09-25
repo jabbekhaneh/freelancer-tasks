@@ -28,7 +28,7 @@
                             <p class="text-dark">End date : @project.EndDate </p>
                             <p class="text-dark"> Price task : @project.PriceTask</p>
                         </div>
-                        <a href="#" class="btn btn-warning">Tasks</a>
+                        <a asp-controller="ProjectTask" asp-route-id="@project.Id" class="btn btn-warning">Tasks</a>
                         <a href="#" class="btn btn-primary">Edit</a>
                         <a href="#" class="btn btn-primary">Reposrt</a>
                     </div>
@@ -39,13 +39,13 @@
 
 
     <div class="row">
-        
+
         <div class="col-md-6 p-4">
             <div class="btn-group" role="group" aria-label="First group">
-                @for (var i = 1; i <= Model.PageSize ; i++)
+                @for (var i = 1; i <= Model.PageSize; i++)
                 {
-                    <a  href="/Project/Index?pageId=@i" class="btn btn-outline-secondaryc @(i==Model.PageId?"active":"") ">@i</a>
-                    
+                    <a href="/Project/Index?pageId=@i" class="btn btn-outline-secondaryc @(i==Model.PageId?"active":"") ">@i</a>
+
                 }
 
             </div>

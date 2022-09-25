@@ -21,6 +21,9 @@ public static class HostingExtentions
         builder.Services.AddTransient<UserService, UserApplicationServices>();
         builder.Services.AddTransient<ProjectServices, ProjectApplicationServices>();
         builder.Services.AddTransient<ProjectRepository, EFProjectRepository>();
+        builder.Services.AddTransient<ProjectTaskRepository, EFProjectTaskRepository>();
+        builder.Services.AddTransient<ProjectTaskServices, ProjectTaskApplicationServices>();
+        
         
         #endregion
 
@@ -41,6 +44,8 @@ public static class HostingExtentions
 
 
         #endregion
+
+        #region Authentication Config
         builder.Services.AddSession();
         builder.Services.AddAuthentication(options =>
         {
@@ -59,6 +64,8 @@ public static class HostingExtentions
             options.Cookie.HttpOnly = true;
             options.Cookie.SameSite = SameSiteMode.Lax;
         });
+        #endregion
+
         builder.Services.AddControllersWithViews();
         return builder.Build();
     }

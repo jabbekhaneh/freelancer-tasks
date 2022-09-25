@@ -7,5 +7,7 @@ public class GetAllProjectTasksByProjectDto
         ProjectTasks = new List<GetProjectTaskDto>();
     }
     public List<GetProjectTaskDto> ProjectTasks { get; set; }
-    
+    public string Title { get; set; }
+    public int ProjectId { get; set; }
+
 }

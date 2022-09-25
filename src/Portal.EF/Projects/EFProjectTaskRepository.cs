@@ -23,16 +23,19 @@ public class EFProjectTaskRepository : ProjectTaskRepository
     public async Task<ProjectTask> FindById(int projectTaskId)
     {
         return await _context.ProjectTasks
-            .SingleOrDefaultAsync(_=>_.Id==projectTaskId);
+            .SingleOrDefaultAsync(_ => _.Id == projectTaskId);
     }
 
     public async Task<GetAllProjectTasksByProjectDto> GetAll(int projectId)
     {
         var result = new GetAllProjectTasksByProjectDto();
-        result.ProjectTasks =await _context.ProjectTasks
+        result.ProjectTasks = await _context.ProjectTasks
             .Where(_ => _.ProjectId == projectId)
             .ProjectToType<GetProjectTaskDto>()
-            .OrderBy(_=>_.StartDate).ToListAsync();
+            .OrderBy(_ => _.StartDate).ToListAsync();
+        var project = await _context.Projects
+            .SingleOrDefaultAsync(_ => _.Id == projectId);
+        result.Title = project.Title;
         return result;
     }
 
